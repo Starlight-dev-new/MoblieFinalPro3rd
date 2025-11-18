@@ -1,17 +1,17 @@
-using System.Diagnostics;
 using UnityEngine;
 
 public class UI_Manager : MonoBehaviour
 {
+    [Header("Reference")]
     [SerializeField] GameObject[] uiElementsCameras;
     [SerializeField] GameObject uiCCTVCameras;
     [SerializeField] GameObject uiBackCameras;
+
     private int mainUIElement = -1;
     private bool steteCCTV = true;
-    private CameraManagr cameraManagr;
+    [SerializeField] CameraManager cameraManagr ;
     void Awake()
     {
-        cameraManagr = FindObjectOfType<CameraManagr>();
         uiCCTVCameras.SetActive(true);
         uiBackCameras.SetActive(true);
     }

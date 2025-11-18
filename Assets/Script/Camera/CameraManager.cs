@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class CameraManagr : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
 
+    [SerializeField] PowerBattery powerBattery;
     [SerializeField] GameObject[] cameras;
     private int mainCamera;
     public int lastCamera = 1;
@@ -37,10 +38,12 @@ public class CameraManagr : MonoBehaviour
         {
             case true:
                 steteOpenCam = false;
+                powerBattery.OnCamera();
                 ChangeCamera(lastCamera);
                 break;
             case false:
                 steteOpenCam = true;
+                powerBattery.OffCamera();
                 lastCamera = mainCamera;
                 ChangeCamera(0);
                 break;
