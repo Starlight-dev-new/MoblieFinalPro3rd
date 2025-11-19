@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UI_Manager : MonoBehaviour
@@ -6,10 +7,13 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] GameObject[] uiElementsCameras;
     [SerializeField] GameObject uiCCTVCameras;
     [SerializeField] GameObject uiBackCameras;
+    [SerializeField] GameObject uiRefill;
+    [SerializeField] Door door;
+    [SerializeField] PowerBattery powerBattery;
+    [SerializeField] CameraManager cameraManagr ;
 
     private int mainUIElement = -1;
     private bool steteCCTV = true;
-    [SerializeField] CameraManager cameraManagr ;
     void Awake()
     {
         uiCCTVCameras.SetActive(true);
@@ -47,6 +51,8 @@ public class UI_Manager : MonoBehaviour
     {
         bool currentState = uiCCTVCameras.activeSelf;
         uiCCTVCameras.SetActive(!currentState);
+        uiRefill.SetActive(currentState);
+        
     }
     // โชว์ UI กล้องCCTV
     public void UiCCTVCam()
@@ -64,6 +70,12 @@ public class UI_Manager : MonoBehaviour
                 UiHideCam(mainUIElement);
                 break;
         }
+    }
+    public void DoorUI()
+    {
+        powerBattery.isDoorOpen = !powerBattery.isDoorOpen;
+        door.ChangDoorStat(powerBattery.isDoorOpen );
+
     }
     
 

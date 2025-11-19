@@ -4,25 +4,12 @@ public class Battery : MonoBehaviour
 {
     [Header("Ref")]
     [SerializeField] GameObject[] batteryBar;
+    [SerializeField] GameObject[] batteryTank;
 
-    private bool open = false;
 
-    void MoveCover()
-    {
-        
-        switch (open)
-        {
-            case false:
-            transform.Translate(4.3f,0,0);
-            open = !open;
-            break;
-            case true:
-             transform.Translate(-4.3f,0,0);
-             open = !open;
-            break;
-        }
-        
-    }
+    public int tankNum = 0;
+
+    
     public void BatteryBar(int persen)
     {
          switch (persen)
@@ -61,4 +48,16 @@ public class Battery : MonoBehaviour
 
         }   
     }
+    public float FillBattery(float currentBattery)
+    {
+   
+        if(tankNum < batteryTank.Length)
+        {
+            Destroy(batteryTank[tankNum]);
+            tankNum++;
+            return 100f;
+        }
+        return currentBattery;
+
+    } 
 }

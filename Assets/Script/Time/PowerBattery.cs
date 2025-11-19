@@ -5,15 +5,18 @@ public class PowerBattery : MonoBehaviour
 {
     [Header("Power Settings")]
     [SerializeField] float currentBattery = 100f;
-    [SerializeField] float drainRate = 1f;
-    [SerializeField] float bootDrainRate = 0.5f;
+    [SerializeField] float drainRate = 0.417f;
+    [SerializeField] float bootDrainRate = 0.433f;
     [SerializeField] Battery battery;
     
     [Header("Other")]
     public bool isCameraOn = false;
+    public bool isDoorOpen = true;
+    
     private float totalDrain;
     void Update()
     {
+        Debug.Log(currentBattery);
         if (currentBattery < 0f)
         {
             currentBattery = 0;
@@ -46,7 +49,8 @@ public class PowerBattery : MonoBehaviour
     {
         totalDrain = drainRate;
 
-        if(isCameraOn) totalDrain += bootDrainRate * 2f;
+        if(isCameraOn) totalDrain += bootDrainRate;
+        if(isDoorOpen) totalDrain += bootDrainRate;
     }
     public void OnCamera()
     {
@@ -63,8 +67,9 @@ public class PowerBattery : MonoBehaviour
     {
         return;
     }
-        void ResetBattery()
+    [ContextMenu("FillBAT")]
+    public void FillBat()
     {
-        currentBattery = 100f;
+        currentBattery = battery.FillBattery(currentBattery) ;
     }
 }
