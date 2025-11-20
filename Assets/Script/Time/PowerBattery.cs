@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class PowerBattery : MonoBehaviour
 {
@@ -16,10 +16,11 @@ public class PowerBattery : MonoBehaviour
     private float totalDrain;
     void Update()
     {
-        Debug.Log(currentBattery);
+       
         if (currentBattery < 0f)
         {
             currentBattery = 0;
+            ZeroBattery();
             return;
         }
         CalculateDrainRate();
@@ -55,7 +56,7 @@ public class PowerBattery : MonoBehaviour
     public void OnCamera()
     {
      isCameraOn = true;
-     Debug.Log("Camera "+ isCameraOn);
+   
         
     }
     public void OffCamera()
@@ -65,6 +66,7 @@ public class PowerBattery : MonoBehaviour
     }
     void ZeroBattery()
     {
+        SceneManager.LoadScene("BadEnd"); 
         return;
     }
     [ContextMenu("FillBAT")]

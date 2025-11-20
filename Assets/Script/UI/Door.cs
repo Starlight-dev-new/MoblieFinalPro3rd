@@ -5,7 +5,7 @@ public class Door : MonoBehaviour
 {
     [SerializeField] GameObject[] doorElement;
 
-    public void ChangDoorStat(bool isDoorOpen = true)
+    public void ChangDoorStat(bool isDoorOpen)
     {
         switch (isDoorOpen)
         {

@@ -19,7 +19,6 @@ public class CameraManager : MonoBehaviour
     }
     public void SetMainCamera()
     {
-        Debug.Log("Main Camera: " + mainCamera);
         for (int i = 0; i < cameras.Length; i++)
         {
             if (i == mainCamera)

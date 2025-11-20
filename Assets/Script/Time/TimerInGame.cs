@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
-using Unity.Mathematics;
-using System;
+using UnityEngine.SceneManagement;
 
 
 
@@ -23,7 +22,7 @@ public class TimerInGame : MonoBehaviour
         }
         else
         {
-            Debug.Log("6AM");
+           SceneManager.LoadScene("GoodEnd"); 
         }
     }
 }

@@ -9,6 +9,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] GameObject uiBackCameras;
     [SerializeField] GameObject uiRefill;
     [SerializeField] Door door;
+    [SerializeField] GameObject doorUi;
     [SerializeField] PowerBattery powerBattery;
     [SerializeField] CameraManager cameraManagr ;
 
@@ -16,12 +17,15 @@ public class UI_Manager : MonoBehaviour
     private bool steteCCTV = true;
     void Awake()
     {
+
+        doorUi.SetActive(true);
         uiCCTVCameras.SetActive(true);
         uiBackCameras.SetActive(true);
     }
     // Hide UI Elements Cameras
     public void UiHideCam(int mainUIElement)
     {
+        
         switch (steteCCTV)
         {
             case true:
@@ -76,6 +80,11 @@ public class UI_Manager : MonoBehaviour
         powerBattery.isDoorOpen = !powerBattery.isDoorOpen;
         door.ChangDoorStat(powerBattery.isDoorOpen );
 
+    }
+    public void DoorUIHide()
+    {
+        bool doorUIStete = doorUi.activeSelf;
+        doorUi.SetActive(!doorUIStete);
     }
     
 

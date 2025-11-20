@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
    
     public int currentRoom ;      // กล้องเริ่มต้น เช่น 1
-    public float moveCooldown = 8f;  // ทุกๆ 8 วิ จะพยายามย้าย
+    private float moveCooldown =8 ;  // ทุกๆ 8 วิ จะพยายามย้าย
     float timer;
     [Header ("REF")]
+    [SerializeField]AudioManager audioManager;
     [SerializeField] GameObject[] rooms;       // จุดตำแหน่งกล้อง Cam1–Cam8
     public PowerBattery playerDoor;        // ห้องผู้เล่น
 
@@ -48,12 +50,15 @@ public class Enemy : MonoBehaviour
         // ถ้าประตูปิด
         if (playerDoor.isDoorOpen == false)
         {
+            audioManager.PlaySFX(audioManager.doorClick);
             currentRoom = Random.Range(5,rooms.Length);
             UpdateRoomActive();
         }
         else
         {
+
             // ประตูเปิด → Game Over
+           audioManager.PlaySFX(audioManager.doorClick);
            StartCoroutine(CountDownEnd(Random.Range(3,5)));
             return;
         }
@@ -75,13 +80,14 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(countDown);
         if (playerDoor.isDoorOpen == false)
         {
+            audioManager.PlaySFX(audioManager.doorClick);
             currentRoom = Random.Range(5,rooms.Length);
             UpdateRoomActive();
         }
         else
         {
             //จบ
-            Debug.Log("End");
+            SceneManager.LoadScene("BadEnd"); 
         }
 
         yield return null;
