@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip lockdoor;
     public AudioClip doorClick;
     public AudioClip ChangBattery;
+    public AudioClip jumpScareSFX;
 
     void Start()
     {

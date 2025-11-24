@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     [Header ("REF")]
     [SerializeField]AudioManager audioManager;
     [SerializeField] GameObject[] rooms;       // จุดตำแหน่งกล้อง Cam1–Cam8
+    [SerializeField] GameObject Bg;
+    [SerializeField] GameObject jumpScareImage;
     public PowerBattery playerDoor;        // ห้องผู้เล่น
 
     void Start()
@@ -86,10 +88,20 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            //จบ
-            SceneManager.LoadScene("BadEnd"); 
+            StartCoroutine(JumpScare());
+            yield break;
         }
 
         yield return null;
     }
+    public IEnumerator JumpScare()
+    {
+        Bg.SetActive(true);
+        yield return new WaitForSeconds(Random.Range(1,3));
+        jumpScareImage.SetActive(true);
+        audioManager.PlaySFX(audioManager.jumpScareSFX);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("BadEnd"); 
+    }
+
 }

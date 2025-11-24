@@ -1,5 +1,5 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PowerBattery : MonoBehaviour
 {
@@ -8,6 +8,7 @@ public class PowerBattery : MonoBehaviour
     [SerializeField] float drainRate = 0.417f;
     [SerializeField] float bootDrainRate = 0.433f;
     [SerializeField] Battery battery;
+    [SerializeField] Enemy JumscareEnemy;
     
     [Header("Other")]
     public bool isCameraOn = false;
@@ -66,7 +67,7 @@ public class PowerBattery : MonoBehaviour
     }
     void ZeroBattery()
     {
-        SceneManager.LoadScene("BadEnd"); 
+        StartCoroutine(JumscareEnemy.JumpScare());
         return;
     }
     [ContextMenu("FillBAT")]
