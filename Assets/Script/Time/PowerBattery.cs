@@ -52,7 +52,7 @@ public class PowerBattery : MonoBehaviour
         totalDrain = drainRate;
 
         if(isCameraOn) totalDrain += bootDrainRate;
-        if(isDoorOpen) totalDrain += bootDrainRate;
+        if(!isDoorOpen) totalDrain += bootDrainRate;
     }
     public void OnCamera()
     {
