@@ -4,11 +4,11 @@ using UnityEngine;
 public class PowerBattery : MonoBehaviour
 {
     [Header("Power Settings")]
-    [SerializeField] float currentBattery = 100f;
     [SerializeField] float drainRate = 0.417f;
     [SerializeField] float bootDrainRate = 0.433f;
     [SerializeField] Battery battery;
     [SerializeField] Enemy JumscareEnemy;
+    public float currentBattery = 100f;
     
     [Header("Other")]
     public bool isCameraOn = false;
@@ -68,6 +68,7 @@ public class PowerBattery : MonoBehaviour
     void ZeroBattery()
     {
         StartCoroutine(JumscareEnemy.JumpScare());
+        AnalyticManager.analytic.SentFailureRateAnalytic("Out of Battery",currentBattery);
         return;
     }
     [ContextMenu("FillBAT")]

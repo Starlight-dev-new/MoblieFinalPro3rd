@@ -9,14 +9,17 @@ public class TimerInGame : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float timer;
     [SerializeField] float timerScals = 36f;
+    [SerializeField] Enemy enemy;
     private int hour;
     private int minute;
+
     void Update()
     {
         if (timer < 6 * 3600)
         {
             timer += Time.deltaTime * timerScals;
             hour = (int)(timer/3600);
+            AnalyticManager.analytic.failureTime = hour;
             minute =(int)((timer % 3600) /60);
             timerText.text = string.Format($"{hour}:{minute:00}AM ");
         }

@@ -711,6 +711,7 @@ MonoBehaviour:
   Bg: {fileID: 1465738674}
   jumpScareImage: {fileID: 1473447922}
   playerDoor: {fileID: 1155207435}
+  hourfailure: 0
 --- !u!4 &175114481
 Transform:
   m_ObjectHideFlags: 0
@@ -3769,6 +3770,7 @@ MonoBehaviour:
   timerText: {fileID: 452986043}
   timer: 0
   timerScals: 36
+  enemy: {fileID: 175114480}
 --- !u!114 &1155207435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3781,11 +3783,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b4c9eb1efdd2342a05dcdb6ba0c70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerBattery
-  currentBattery: 100
   drainRate: 1
   bootDrainRate: 0.5
   battery: {fileID: 764439987}
   JumscareEnemy: {fileID: 175114480}
+  currentBattery: 100
   isCameraOn: 0
   isDoorOpen: 1
 --- !u!114 &1155207436

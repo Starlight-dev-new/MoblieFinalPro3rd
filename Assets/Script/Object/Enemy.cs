@@ -13,7 +13,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject[] rooms;       // จุดตำแหน่งกล้อง Cam1–Cam8
     [SerializeField] GameObject Bg;
     [SerializeField] GameObject jumpScareImage;
-    public PowerBattery playerDoor;        // ห้องผู้เล่น
+    public PowerBattery playerDoor;  // ห้องผู้เล่น
+    public int hourfailure;
+    
 
     void Start()
     {
@@ -62,6 +64,7 @@ public class Enemy : MonoBehaviour
             // ประตูเปิด → Game Over
            audioManager.PlaySFX(audioManager.doorClick);
            StartCoroutine(CountDownEnd(Random.Range(3,5)));
+           AnalyticManager.analytic.SentFailureRateAnalytic("Ghost",playerDoor.currentBattery);
             return;
         }
     }
