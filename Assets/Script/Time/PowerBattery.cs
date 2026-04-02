@@ -15,6 +15,7 @@ public class PowerBattery : MonoBehaviour
     public bool isDoorOpen = true;
     
     private float totalDrain;
+    private bool isGameOver = false;
     void Update()
     {
        
@@ -68,7 +69,11 @@ public class PowerBattery : MonoBehaviour
     void ZeroBattery()
     {
         StartCoroutine(JumscareEnemy.JumpScare());
+        if (!isGameOver)
+        {
+            isGameOver = true;
         AnalyticManager.analytic.SentFailureRateAnalytic("Out of Battery",currentBattery);
+        }
         return;
     }
     [ContextMenu("FillBAT")]

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
+using UnityEngine.UnityConsent;
 public class AnalyticManager : MonoBehaviour
 {
     public static AnalyticManager analytic {get; private set;}
@@ -28,8 +29,10 @@ public class AnalyticManager : MonoBehaviour
     {
         SentAnalyticOnQuit();
     }
+    [ContextMenu("SentAnalyticOnQuit")]
     void SentAnalyticOnQuit()
     {
+        Debug.Log("Quit");
         float averateTimeReplay = 0;
         if (retryCount >0)
         {
@@ -47,6 +50,10 @@ public class AnalyticManager : MonoBehaviour
 
             AnalyticsService.Instance.RecordEvent(session_Length);
             AnalyticsService.Instance.RecordEvent(retryRate);
+            AnalyticsService.Instance.Flush();
+            
+            Debug.Log("SentAnalyticOnQuit");
+
         
     }
     public void SentFailureRateAnalytic(string cause,float remainPower)
@@ -58,11 +65,29 @@ public class AnalyticManager : MonoBehaviour
                 {"remainPower",remainPower}
             };
          AnalyticsService.Instance.RecordEvent(failuer_Rate);
+         AnalyticsService.Instance.Flush();
+         Debug.Log("SentFailureRateAnalytic");
     }
 
-    private async void Initialize()
+     private async void Initialize()
     {
-        await UnityServices.InitializeAsync();
+         try
+       {
+            // ✅ Set consent ก่อน Initialize
+            EndUserConsent.SetConsentState(new ConsentState
+            {
+                AnalyticsIntent = ConsentStatus.Granted
+            });
+
+            await UnityServices.InitializeAsync();
+            Debug.Log("Unity Services Initialized");
+        }
+         catch (System.Exception e)
+        {
+            Debug.LogError($"Unity Services Init Failed: {e.Message}");
+        }
+        
+    
     }
 
 }

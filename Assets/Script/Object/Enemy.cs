@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject jumpScareImage;
     public PowerBattery playerDoor;  // ห้องผู้เล่น
     public int hourfailure;
+    private bool isGameOver = false;
     
 
     void Start()
@@ -27,7 +28,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        if (timer <= 0)
+        if (timer <= 0 )
         {
             MoveToNextRoom();
             timer = moveCooldown;
@@ -64,7 +65,7 @@ public class Enemy : MonoBehaviour
             // ประตูเปิด → Game Over
            audioManager.PlaySFX(audioManager.doorClick);
            StartCoroutine(CountDownEnd(Random.Range(3,5)));
-           AnalyticManager.analytic.SentFailureRateAnalytic("Ghost",playerDoor.currentBattery);
+
             return;
         }
     }
@@ -91,6 +92,11 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            if(!isGameOver)  
+            {
+            isGameOver = true;
+            AnalyticManager.analytic.SentFailureRateAnalytic("Ghost",playerDoor.currentBattery);
+            }
             StartCoroutine(JumpScare());
             yield break;
         }
