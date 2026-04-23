@@ -13,6 +13,7 @@ public class TimerInGame : MonoBehaviour
     public float timeForPlay;
     private int hour;
     private int minute;
+    private bool sent = false;
     void Start()
     {
         AnalyticManager.Instance.sessionTime = 0;
@@ -31,8 +32,12 @@ public class TimerInGame : MonoBehaviour
         }
         else
         {
-           SceneManager.LoadScene("GoodEnd"); 
-           AnalyticManager.Instance.Session_Length();
+            if (!sent)
+            {
+                sent = true;
+              AnalyticManager.Instance.Session_Length();
+              SceneManager.LoadScene("GoodEnd");
+            }
         }
     }
 }
