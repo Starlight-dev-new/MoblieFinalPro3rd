@@ -95,7 +95,8 @@ public class Enemy : MonoBehaviour
             if(!isGameOver)  
             {
             isGameOver = true;
-            AnalyticManager.analytic.SentFailureRateAnalytic("Ghost",playerDoor.currentBattery);
+            AnalyticManager.Instance.SentFailureRateAnalytic("Ghost",playerDoor.currentBattery);
+            AnalyticManager.Instance.Session_Length();
             }
             StartCoroutine(JumpScare());
             yield break;

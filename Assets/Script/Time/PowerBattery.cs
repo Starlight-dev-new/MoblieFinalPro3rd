@@ -57,9 +57,7 @@ public class PowerBattery : MonoBehaviour
     }
     public void OnCamera()
     {
-     isCameraOn = true;
-   
-        
+     isCameraOn = true;  
     }
     public void OffCamera()
     {
@@ -72,7 +70,8 @@ public class PowerBattery : MonoBehaviour
         if (!isGameOver)
         {
             isGameOver = true;
-        AnalyticManager.analytic.SentFailureRateAnalytic("Out of Battery",currentBattery);
+        AnalyticManager.Instance.SentFailureRateAnalytic("Out of Battery",currentBattery);
+        AnalyticManager.Instance.Session_Length();
         }
         return;
     }

@@ -28,8 +28,7 @@ public class ChangSecn : MonoBehaviour
     public void PlayAgin()
     {
         SceneManager.LoadScene("MainGame");
-        AnalyticManager.analytic.retryTimeAve += timeRetry;
-        AnalyticManager.analytic.retryCount ++;
+        AnalyticManager.Instance.SentRetryRate(timeRetry);
     }
     public void playMain()
     {

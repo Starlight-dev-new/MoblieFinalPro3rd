@@ -4,58 +4,46 @@ using Unity.Services.Core;
 using UnityEngine.UnityConsent;
 public class AnalyticManager : MonoBehaviour
 {
-    public static AnalyticManager analytic {get; private set;}
-    private float timePlay = 0;
-    public int retryCount = 0;
+    public static AnalyticManager Instance {get; private set;}
+    public float sessionTime = 0;
     public float failureTime = 0;
-    public float retryTimeAve = 0;
+    public float retryTime = 0;
+
     void Awake()
     {
-        if(analytic != null && analytic != this )
+        if(Instance != null && Instance != this )
         {
             Destroy(gameObject);
         }else
         {
-            analytic = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         Initialize();
     }
-    void Update()
+
+    public void Session_Length()
     {
-        timePlay +=Time.deltaTime;
-    }
-    void OnApplicationQuit()
-    {
-        SentAnalyticOnQuit();
-    }
-    [ContextMenu("SentAnalyticOnQuit")]
-    void SentAnalyticOnQuit()
-    {
-        Debug.Log("Quit");
-        float averateTimeReplay = 0;
-        if (retryCount >0)
+        CustomEvent session_Length = new CustomEvent("Session_Length")
         {
-            averateTimeReplay = retryTimeAve / retryCount;
-        }       
-            CustomEvent session_Length = new CustomEvent("Session_Length")
-            {
-                {"sessionTime",timePlay},
-            };
-            CustomEvent retryRate = new CustomEvent("retryRate")
-            {
-              {"retryCount",retryCount},
-              {"retryAver",averateTimeReplay}  
-            };
-
-            AnalyticsService.Instance.RecordEvent(session_Length);
-            AnalyticsService.Instance.RecordEvent(retryRate);
-            AnalyticsService.Instance.Flush();
-            
-            Debug.Log("SentAnalyticOnQuit");
-
-        
+            {"sessionTime",sessionTime},
+        };
+        AnalyticsService.Instance.RecordEvent(session_Length);
+        AnalyticsService.Instance.Flush();
+        Debug.Log("Session_Length"); 
     }
+    
+    public void SentRetryRate(float time)
+    {
+        retryTime = time;
+        CustomEvent retryRate = new CustomEvent("retryRate")
+         {
+             {"failuer_Rate",retryTime},
+         };
+        AnalyticsService.Instance.RecordEvent(retryRate);
+        AnalyticsService.Instance.Flush();
+        Debug.Log("SentRetryRate"); 
+     }
     public void SentFailureRateAnalytic(string cause,float remainPower)
     {
           CustomEvent failuer_Rate = new CustomEvent("failuer_Rate")
