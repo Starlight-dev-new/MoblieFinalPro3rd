@@ -66,13 +66,13 @@ public class PowerBattery : MonoBehaviour
     }
     void ZeroBattery()
     {
-        StartCoroutine(JumscareEnemy.JumpScare());
         if (!isGameOver)
         {
             isGameOver = true;
         AnalyticManager.Instance.SentFailureRateAnalytic("Out of Battery",currentBattery);
         AnalyticManager.Instance.Session_Length();
         }
+        StartCoroutine(JumscareEnemy.JumpScare());
         return;
     }
     [ContextMenu("FillBAT")]
